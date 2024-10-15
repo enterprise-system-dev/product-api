@@ -3,6 +3,7 @@ package com.ecom.product_api.service.impl;
 import com.ecom.product_api.dto.request.RequestProductDto;
 import com.ecom.product_api.dto.response.ResponseProductDto;
 import com.ecom.product_api.dto.response.paginate.ResponseProductPaginate;
+import com.ecom.product_api.entity.Images;
 import com.ecom.product_api.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
