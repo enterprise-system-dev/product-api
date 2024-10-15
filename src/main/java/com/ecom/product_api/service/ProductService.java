@@ -9,7 +9,7 @@ public interface ProductService {
     public void createProduct(RequestProductDto dto, MultipartFile file);
     public void updateProduct(RequestProductDto dto, String productId);
     public void deleteProduct(String productId);
-    public ResponseProductDto fundProductById(String productId);
+    public ResponseProductDto findProductById(String productId);
     public ResponseProductPaginate searchAllProducts(String searchText, int page, int size);
     public void updateImage(String imageId, MultipartFile file);
     public void deleteImage(String imageId);
