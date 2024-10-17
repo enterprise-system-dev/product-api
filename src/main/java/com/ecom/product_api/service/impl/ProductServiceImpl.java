@@ -10,6 +10,7 @@ import com.ecom.product_api.entity.Product;
 import com.ecom.product_api.repository.ProductRepo;
 import com.ecom.product_api.service.FileService;
 import com.ecom.product_api.service.ProductService;
+import com.ecom.product_api.util.FileDataExtractor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ import java.util.UUID;
 public class ProductServiceImpl implements ProductService {
 
     private final FileService fileService;
+    private final FileDataExtractor fileDataExtractor;
     private final ProductRepo productRepo;
     @Value("${bucketName}")
     private String bucketName;
@@ -58,8 +60,8 @@ public class ProductServiceImpl implements ProductService {
                     .build();
             productRepo.save(product);
         } catch (SQLException | IOException e) {
-                fileService.delete(resource.getDirectory(),
-                        resource.getFileName(),bucketName);
+                fileService.delete(fileDataExtractor.blobToString(resource.getDirectory()),
+                        fileDataExtractor.blobToString(resource.getFileName()),bucketName);
             throw new RuntimeException(e);
         }
     }
