@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/products-service/api/v1/products")
 @RequiredArgsConstructor
+// loggers
 public class ProductController {
     private final ProductService productService;
 
