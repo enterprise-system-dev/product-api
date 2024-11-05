@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,7 @@ public class ProductController {
     private final ProductService productService;
 
     @PostMapping("/save")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<StandardResponse> createProduct(
             @Valid @RequestParam("data") String data,
             @Valid @RequestParam("image") MultipartFile image
@@ -34,6 +36,7 @@ public class ProductController {
     }
 
     @PutMapping("/update/{productId}")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<StandardResponse> updateProduct(
             @RequestBody RequestProductDto dto, @PathVariable String productId) {
         productService.updateProduct(dto, productId);
@@ -44,6 +47,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{productId}")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<StandardResponse> deleteProduct(@PathVariable String productId) {
         productService.deleteProduct(productId);
         return new ResponseEntity<>(
@@ -53,6 +57,7 @@ public class ProductController {
     }
 
     @GetMapping("/find-by-id/{productId}")
+    @PreAuthorize("hasAnyRole('admin','user')")
     public ResponseEntity<StandardResponse> findProductById(@PathVariable String productId) {
 
         return new ResponseEntity<>(
@@ -62,6 +67,7 @@ public class ProductController {
     }
 
     @GetMapping("/search-products")
+    @PreAuthorize("hasAnyRole('admin','user')")
     public ResponseEntity<StandardResponse> searchAllProducts(
             @RequestParam String searchText, @RequestParam int page, @RequestParam int size) {
 
@@ -72,6 +78,7 @@ public class ProductController {
     }
 
     @PutMapping("/update-image/{imageId}")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<StandardResponse> updateImage(
             @PathVariable String imageId,
             @RequestParam("image") MultipartFile file
@@ -84,6 +91,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete-image-by-id/{imageId}")
+    @PreAuthorize("hasAnyRole('admin')")
     public ResponseEntity<StandardResponse> deleteImage(@PathVariable String imageId) {
         productService.deleteImage(imageId);
         return new ResponseEntity<>(
