@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/products-service/api/v1/products")
+@RequestMapping("/product-service/api/v1/products")
 @RequiredArgsConstructor
 // loggers
 public class ProductController {
